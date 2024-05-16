@@ -1,41 +1,25 @@
+#2変数のニュートン
 import numpy as np
+import math
 
-# 関数の定義
-def f(x, y):
-    return np.sin(x) + y
+def f(x,y):
+    return math.sin(x) + y
 
-def g(x, y):
-    return x - np.cos(y)
+def g(x,y):
+    return x - math.cos(y)
 
-# ヤコビ行列の定義
-def jacobian(x, y):
-    return np.array([[np.cos(x), 1],
-                     [1, np.sin(y)]])
+X1=0
+Y1=0
 
-# ニュートン法の実装
-def newton_method(x_init, y_init, tol=1e-6, max_iter=100):
-    x = x_init
-    y = y_init
-    for i in range(max_iter):
-        f_val = np.array([f(x, y), g(x, y)])
-        jacobian_inv = np.linalg.inv(jacobian(x, y))
-        delta = -jacobian_inv.dot(f_val)
-        x += delta[0]
-        y += delta[1]
-        if np.linalg.norm(delta) < tol:
-            break
-    return x, y
+A2=np.array([[X1], [Y1]]) - (1 / ((math.cos(X1) * math.sin(Y1) )- 1)) * np.array([[math.sin(Y1), -1], [-1, math.cos(X1)]]) @ np.array([[f(X1,Y1)], [g(X1,Y1)]])
 
-# 初期値を設定
-x1, y1 = 0, 0
+X2=A2[0,0]
+Y2=A2[1,0]
 
-# 初期値(x1, y1)での解
-x2, y2 = newton_method(x1, y1)
+A3=np.array([[X2], [Y2]]) - (1 / ((math.cos(X2) * math.sin(Y2) )- 1)) * np.array([[math.sin(Y2), -1], [-1, math.cos(X2)]]) @ np.array([[f(X2,Y2)], [g(X2,Y2)]])
 
-# 初期値(x2, y2)での解
-x3, y3 = newton_method(x2, y2)
+X3=A3[0,0]
+Y3=A3[1,0]
 
-print(f"x1={x1}, y1={y1}")
-print(f"x2={x2}, y2={y2}")
-print(f"x3={x3}, y3={y3}")
 
+print(f"X1={X1} , Y1={Y1} , f(X1,Y1)={f(X1,Y1)} , g(X1,Y1)={g(X1,Y1)} , A2={A2} , X2={X2} , Y2={Y2} , A3={A3} , X3={X3} , Y3={Y3} ")
