@@ -14,14 +14,20 @@ def gauss_jordan_elimination(A):
         # 部分ピボット操作（最大絶対値の行を探して入れ替え）
         max_row = np.argmax(np.abs(A[i:, i])) + i
         A[[i, max_row]] = A[[max_row, i]]
+        print(f"Step {i+1}: Pivot row swapping")
+        print(A)
         
         # ピボット行の正規化
         A[i] = A[i] / A[i, i]
+        print(f"Step {i+1}: Pivot row normalization")
+        print(A)
         
         # 前進消去操作
         for j in range(n):
             if i != j:
                 A[j] = A[j] - A[i] * A[j, i]
+                print(f"Step {i+1}.{j+1}: Eliminate row {j+1}")
+                print(A)
 
     # 解の抽出
     x = A[:, -1]
