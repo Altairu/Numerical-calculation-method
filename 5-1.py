@@ -15,18 +15,26 @@ def gauss_elimination(A):
         # 部分ピボット操作（最大絶対値の行を探して入れ替え）
         max_row = np.argmax(np.abs(A[i:, i])) + i
         A[[i, max_row]] = A[[max_row, i]]
+        print(f"Step {i+1}: Pivot row swapping")
+        print(A)
         
         # ピボット行の正規化
         A[i] = A[i] / A[i, i]
+        print(f"Step {i+1}: Pivot row normalization")
+        print(A)
         
         # 他の行を消去
         for j in range(i+1, n):
             A[j] = A[j] - A[i] * A[j, i]
+            print(f"Step {i+1}.{j+1}: Eliminate row {j+1}")
+            print(A)
 
     # 逆進代入操作
     x = np.zeros(n)
     for i in range(n-1, -1, -1):
         x[i] = A[i, -1] - np.dot(A[i, i+1:n], x[i+1:n])
+        print(f"Step {n+i+1}: Back substitution for x[{i}]")
+        print(f"x[{i}] = {x[i]}")
     
     return x
 
