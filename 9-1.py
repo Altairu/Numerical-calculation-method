@@ -17,7 +17,7 @@ def lagrange_interpolation(x, points):
         total += term
     return total
 
-# x = 1.5 における y の値を計算
+# x = 1.5 
 x_value = 1.5
 y_value = lagrange_interpolation(x_value, points)
 print (y_value)
